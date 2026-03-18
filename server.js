@@ -70,12 +70,12 @@ app.get("/positions", async (req, res) => {
 app.post("/positions", async (req, res) => {
   const {cst,token,base} = getH(req);
   if (!cst) return res.status(401).json({error:"Sin sesion"});
-  const {epic,direction,size,stopLevel,profitLevel} = req.body;
+  const {epic,direction,size,stopLevel,limitLevel} = req.body;
   if (!epic||!direction||!size) return res.status(400).json({error:"epic, direction y size requeridos"});
   try {
     const body = {epic,direction,size};
     if (stopLevel)   body.stopLevel   = stopLevel;
-    if (profitLevel) body.profitLevel = profitLevel;
+    if (limitLevel) body.limitLevel = limitLevel;
     const r = await fetch(base+"/positions",{
       method:"POST",
       headers:{"Content-Type":"application/json","X-SECURITY-TOKEN":token,CST:cst},

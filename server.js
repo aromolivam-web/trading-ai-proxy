@@ -10,7 +10,7 @@ const DEMO = "https://demo-api-capital.backend-capital.com/api/v1";
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => res.json({ status:"ok", service:"Trading AI Proxy v5.0" }));
+app.get("/", (req, res) => res.json({ status:"ok", service:"Trading AI Proxy v5.1" }));
 
 app.post("/session", async (req, res) => {
   const { apiKey, email, password, demo } = req.body;

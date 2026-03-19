@@ -114,4 +114,15 @@ function getH(req){
   return{cst:req.headers["x-cst"]||"",token:req.headers["x-token"]||"",base:req.headers["x-base"]||LIVE};
 }
 
+app.get("/confirms/:dealRef", async (req, res) => {
+  const {cst,token,base} = getH(req);
+  if (!cst) return res.status(401).json({error:"Sin sesion"});
+  try {
+    const r = await fetch(base+"/confirms/"+req.params.dealRef, {
+      headers:{"X-SECURITY-TOKEN":token,CST:cst}
+    });
+    res.status(r.status).json(await r.json());
+  } catch(e){res.status(500).json({error:e.message});}
+});
+
 app.listen(PORT,()=>console.log("Trading AI Proxy v5.0 en puerto "+PORT));
